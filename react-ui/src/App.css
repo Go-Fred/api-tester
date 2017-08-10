@@ -1,5 +1,5 @@
 .App {
-  text-align: center;
+  /*text-align: center;*/
 }
 
 .App-logo {
@@ -20,6 +20,10 @@
 
 .App a {
   color: #f60;
+}
+
+.button-container p {
+  display: inline;
 }
 
 @keyframes App-logo-spin {
