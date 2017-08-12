@@ -47,8 +47,7 @@ class PostMessage extends Component {
           </div>
         );
       }
-    }
-    else {
+    } else {
       return (
         <div>
           <p>
