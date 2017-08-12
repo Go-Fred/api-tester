@@ -1,10 +1,7 @@
 .App {
-  /*text-align: center;*/
-}
-
-.App-logo {
-  animation: App-logo-spin infinite 20s linear;
-  height: 80px;
+  margin-left: 50px;
+  margin-right: 50px;
+  margin-bottom: 50px;
 }
 
 .App-header {
@@ -26,7 +23,78 @@
   display: inline;
 }
 
+.button-container button {
+  border: 0px;
+  border-radius: 4px;
+  color: rgb(255, 255, 255);
+  font-weight: 400;
+  box-shadow: rgba(63, 49, 178, 0.1) 0px 2px 4px,
+    rgba(63, 49, 178, 0.03) 0px 4px 14px;
+  transition: all 0.15s ease-out;
+  background-color: rgb(163, 71, 183);
+  font-size: 17px;
+  padding: 7px 22px 8px;
+  outline: none;
+  margin-right: 20px;
+  /*width: 150px;*/
+}
+
+.step-container h2{
+  font-size: 20px;
+  color: rgb(85, 84, 89);
+  font-weight: 500;
+  color:
+}
+
+.hljs {
+  max-height: 250px;
+  max-width: 500px;
+  border-radius: 4px;
+}
+
+.arrow {
+  color: rgb(163, 71, 183);
+  font-size: 15px;
+}
+
+.number {
+  color: rgb(163, 71, 183);
+  font-size: 30px;
+  font-weight: 800;
+}
+
+.api-call{
+  font-size: 18px;
+  font-weight: 800;
+  color: #C8C8C7;
+}
+
+p{
+  color: rgb(85, 84, 89);
+  font-size: 16px;
+}
+
+.text-container{
+  margin-left: 30px;
+}
+
+.parameters input{
+  margin-left: 10px;
+}
+
+.parameters label{
+  margin-right: 25px;
+}
+
+.parameters{
+  margin-bottom: 15px;
+}
+
 @keyframes App-logo-spin {
-  from { transform: rotate(0deg); }
-  to { transform: rotate(360deg); }
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
 }
