@@ -36,38 +36,43 @@ class Yo extends Component {
   };
 
   renderHighlight = () => {
-    console.log(this.state.error)
-    if (!this.state.error){
+    console.log(this.state.error);
+    if (!this.state.error) {
       if (this.state.appUserMessagePayload) {
         return (
           <div>
-            <p> Webhook payload:</p>
+            <p> Webhook payload (message part):</p>
             <Highlight className="JSON">
               {this.state.appUserMessagePayload}
             </Highlight>
           </div>
         );
       }
-    }
-    else {
-        return (
-          <Highlight className="JSON">
-            {"Please retry, Smooch was not ready yet..."}
-          </Highlight>
-        );
+    } else {
+      return (
+        <Highlight className="JSON">
+          {"Please retry, Smooch was not ready yet..."}
+        </Highlight>
+      );
     }
     return;
   };
 
   render() {
     return (
-      <div className="yo-container">
-        <p> 1. App User -> Smooch -> Webhook</p>
-        <div className="button-container">
-          <button onClick={this.sendYo}>Send yo</button>{" "}
-          <p>App User is sending "yo"</p>
+      <div className="step-container">
+        <h2>
+          {" "}<span className="number">1.</span> App User{" "}
+          <span className="arrow">→</span> Smooch{" "}
+          <span className="arrow">→</span> Webhook
+        </h2>
+        <div className="text-container">
+          <p className="api-call">App User is sending "yo"</p>
+          <div className="button-container">
+            <button onClick={this.sendYo}>Send yo</button>{" "}
+          </div>
+          {this.renderHighlight()}
         </div>
-        {this.renderHighlight()}
       </div>
     );
   }
