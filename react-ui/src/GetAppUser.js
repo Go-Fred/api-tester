@@ -66,16 +66,21 @@ class GetAppUser extends Component {
 
   render() {
     return (
-      <div>
-        <div className="getAppUser-container">
-          <p> 2. API Call -> Smooch -> Webhook</p>
-          <div>
+      <div className="step-container">
+        <h2>
+          {" "}<span className="number">2.</span> API Call{" "}
+          <span className="arrow">→</span> Smooch{" "}
+          <span className="arrow">→</span> Webhook
+        </h2>
+        <div className="text-container">
+          <p className="api-call">
+            GET /v1/apps/{"{"}appId{"}"}/appusers/{"{"}smoochId|userId{"}"}
+          </p>
+          <div className="button-container">
             <button onClick={this.getAppUser}>Get app user </button>
           </div>
-        </div>
-        <div>
-          {this.renderHighlight(this.state.userIdPayload, "user Id Payload: ")}
-          {this.renderHighlight(this.state.smoochUserId, "user: ")}
+          {this.renderHighlight(this.state.smoochUserId, "Smooch userId (_id): ")}
+          {this.renderHighlight(this.state.userIdPayload, "Full user payload: ")}
         </div>
       </div>
     );
