@@ -66,21 +66,45 @@ app.get('/appuser', function (req, res) {
 });
 });
 
-app.get('/postmessage', function(req,res){
-  smooch.appUsers.sendMessage(appUserId, {
+app.get('/postmessage/message/:message', function(req,res){
+  var message = req.params.message
+
+  var messageRequest = {
     type: 'text',
-    text: 'Just put some vinegar on it',
+    text: message,
+    role: 'appMaker',
+    metadata: {"lang": "en-ca", "items": 3}
+  }
+
+  console.log(messageRequest)
+
+  smooch.appUsers.sendMessage(appUserId, messageRequest).then((response) => {
+    res.send(response)
+}) ;
+});
+
+app.get('/postmessage/message/:message/button/:buttonMessage', function(req,res){
+  var message = req.params.message
+  var buttonMessage = req.params.buttonMessage
+
+
+  messageRequest = {
+    type: 'text',
+    text: message,
     role: 'appMaker',
     metadata: {"lang": "en-ca", "items": 3},
     actions: [
       {
         type: 'link',
-        text: 'Put vinegar',
+        text: buttonMessage,
         uri: 'http://example.com',
         metadata: {buttonId: 'vinegar'}
       }
     ]
-  }).then((response) => {
+  }
+  console.log(messageRequest)
+
+  smooch.appUsers.sendMessage(appUserId, messageRequest).then((response) => {
     res.send(response)
 }) ;
 });
