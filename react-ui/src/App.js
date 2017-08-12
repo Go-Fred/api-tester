@@ -14,12 +14,13 @@ class App extends Component {
     };
     //this.handleClick = this.handleClick.bind(this)
   }
-  
+
   render() {
     return (
       <div className="App">
         <div className="title-container">
           <h1>Smooch API Tester</h1>
+          <p>Explore Smooch API with few sample calls</p>
         </div>
         <Yo />
         <GetAppUser />
