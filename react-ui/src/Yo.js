@@ -60,14 +60,17 @@ class Yo extends Component {
 
   render() {
     return (
-      <div className="step-container">
+      <div className="call-section">
         <h2>
-          {" "}<span className="number">1.</span> App User{" "}
+          {" "} A first user message{" "}
+        </h2>
+        <h3>
+          {" "}App User{" "}
           <span className="arrow">→</span> Smooch{" "}
           <span className="arrow">→</span> Webhook
-        </h2>
-        <div className="text-container">
-          <p className="api-call">App User is sending "yo"</p>
+        </h3>
+        <p>Before sending out some calls, let's try simulating a "yo" message from the user and see the payload a webhook targeting message:AppUser gets in return.</p>
+        <div className="call">
           <div className="button-container">
             <button onClick={this.sendYo}>Send yo</button>{" "}
           </div>

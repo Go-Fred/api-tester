@@ -125,13 +125,18 @@ class PostMessage extends Component {
 
   render() {
     return (
-      <div className="step-container">
+      <div className="call-section">
         <h2>
-          {" "}<span className="number">3.</span> API Call{" "}
-          <span className="arrow">→</span> Smooch{" "}
-          <span className="arrow">→</span> Webhook
+          {" "} Conversation calls{" "}
         </h2>
-        <div className="text-container">
+        <h3>
+          {" "}Server request{" "}
+          <span className="arrow">→</span> Smooch{" "}
+          <span className="arrow">→</span> Response
+        </h3>
+        <p>And finally, we can add more messages to the conversation.</p>
+
+        <div className="call">
           <p className="api-call">
             POST /v1/apps/{"{"}appId{"}"}/appusers/{"{"}smoochId|userId{"}"}/messages
           </p>

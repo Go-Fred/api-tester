@@ -79,21 +79,37 @@ class GetAppUser extends Component {
 
   render() {
     return (
-      <div className="step-container">
-        <h2>
-          {" "}<span className="number">2.</span> API Call{" "}
-          <span className="arrow">→</span> Smooch{" "}
-          <span className="arrow">→</span> Webhook
-        </h2>
-        <div className="text-container">
+      <div className="call-section">
+        <h2>  AppUser calls </h2>
+        <h3>
+          {" "}Server request <span className="arrow">→</span> Smooch{" "}
+          <span className="arrow">→</span> Response
+        </h3>
+        <p>
+          Now that the user has started the conversation, let's test the calls
+          to manipulate the user's info.
+        </p>
+        <div className="call">
+          <DropdownButton title={this.state.dropdownTitle} id={`dropdown-basic`}>
+            <MenuItem eventKey="Get App User" onSelect={(eventKey) => this.dropdownClick(eventKey)} >Get App User</MenuItem>
+            <MenuItem eventKey="2">Another action</MenuItem>
+            <MenuItem eventKey="3" >Active Item</MenuItem>
+            <MenuItem eventKey="4">Separated link</MenuItem>
+          </DropdownButton>
           <p className="api-call">
             GET /v1/apps/{"{"}appId{"}"}/appusers/{"{"}smoochId|userId{"}"}
           </p>
           <div className="button-container">
             <button onClick={this.getAppUser}>Get app user </button>
           </div>
-          {this.renderHighlight(this.state.smoochUserId, "Smooch userId (_id): ")}
-          {this.renderHighlight(this.state.userIdPayload, "Full user payload: ")}
+          {this.renderHighlight(
+            this.state.smoochUserId,
+            "Smooch userId (_id): "
+          )}
+          {this.renderHighlight(
+            this.state.userIdPayload,
+            "Full user payload: "
+          )}
         </div>
       </div>
     );
