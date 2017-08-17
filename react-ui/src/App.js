@@ -18,7 +18,7 @@ class App extends Component {
   render() {
     return (
       <div className="App">
-        <div className="title-container">
+        <div className="intro">
           <h1>Smooch API Tester</h1>
           <p>Explore Smooch API with few sample calls</p>
         </div>

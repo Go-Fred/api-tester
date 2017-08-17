@@ -1,18 +1,62 @@
+/*Top level style overwrite*/
+
+p {
+  color: rgb(85, 84, 89);
+  font-size: 16px;
+  font-weight: 300;
+}
+
+h3 {
+  font-size: 16px;
+  font-weight: 600;
+}
+
+pre {
+  display: block;
+  padding: 0px;
+  font-size: 13px;
+  line-height: 1.42857143;
+  color: #333;
+  background-color: #ffffff;
+  border: 0px solid #ccc;
+}
+/*App & Intro*/
+
 .App {
   margin-left: 50px;
   margin-right: 50px;
   margin-bottom: 50px;
 }
 
-.App-header {
-  background-color: #222;
-  height: 150px;
-  padding: 20px;
-  color: white;
+.intro {
+  margin-bottom: 50px;
 }
 
-.App-intro {
-  font-size: large;
+.intro p {
+  margin-top: 0px;
+  margin-bottom: 0px;
+}
+
+.intro h1 {
+  margin-bottom: 10px;
+}
+
+/*Sections*/
+
+.call-section {
+  margin-bottom: 60px;
+}
+
+.call-section h2 {
+  color: rgb(163, 71, 183);
+  font-size: 25px;
+  font-weight: 600;
+  margin-bottom: 10px;
+}
+
+.call-section h3 {
+  margin-top: 0px;
+  margin-bottom: 25px;
 }
 
 .App a {
@@ -35,15 +79,8 @@
   font-size: 17px;
   padding: 7px 22px 8px;
   outline: none;
-  margin-right: 20px;
+  /*margin-right: 20px;*/
   /*width: 150px;*/
-}
-
-.step-container h2{
-  font-size: 20px;
-  color: rgb(85, 84, 89);
-  font-weight: 500;
-  color:
 }
 
 .hljs {
@@ -63,30 +100,24 @@
   font-weight: 800;
 }
 
-.api-call{
+.api-call {
   font-size: 18px;
   font-weight: 800;
-  color: #C8C8C7;
+  color: #c8c8c7;
 }
 
-p{
-  color: rgb(85, 84, 89);
-  font-size: 16px;
+.call {
 }
 
-.text-container{
-  margin-left: 30px;
-}
-
-.parameters input{
+.parameters input {
   margin-left: 10px;
 }
 
-.parameters label{
+.parameters label {
   margin-right: 25px;
 }
 
-.parameters{
+.parameters {
   margin-bottom: 15px;
 }
 
