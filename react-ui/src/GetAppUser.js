@@ -1,5 +1,10 @@
 import React, { Component } from "react";
+import { MenuItem, DropdownButton } from "react-bootstrap";
 var Highlight = require("react-highlight");
+
+const options = ["one", "two", "three"];
+
+const defaultOption = options[0];
 
 class GetAppUser extends Component {
   constructor(props) {
@@ -8,6 +13,7 @@ class GetAppUser extends Component {
       userIdPayload: null,
       smoochUserId: null,
       errorPayload: null,
+      dropdownTitle: 'Get App User',
       error: false
     };
   }
@@ -34,6 +40,13 @@ class GetAppUser extends Component {
         });
       });
   };
+
+  dropdownClick = (eventKey) => {
+    console.log(eventKey)
+    console.log(this.state.dropdownTitle)
+    this.setState({dropdownTitle: eventKey})
+    console.log(this.state.dropdownTitle)
+  }
 
   renderHighlight = (data, title) => {
     if (!this.state.error) {
