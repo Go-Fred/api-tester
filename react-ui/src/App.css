@@ -56,7 +56,7 @@ pre {
 
 .call-section h3 {
   margin-top: 0px;
-  margin-bottom: 25px;
+  margin-bottom: 20px;
 }
 
 .App a {
@@ -101,8 +101,11 @@ pre {
 }
 
 .api-call {
+  color: #a0a0a0;
+  padding-left: 15px;
+  display: inline-block;
+  margin-top: 6px;
   font-size: 18px;
-  font-weight: 800;
   color: #c8c8c7;
 }
 
@@ -119,6 +122,10 @@ pre {
 
 .parameters {
   margin-bottom: 15px;
+}
+
+.result-section {
+  margin-top:10px;
 }
 
 @keyframes App-logo-spin {
