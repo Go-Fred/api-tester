@@ -1,9 +1,8 @@
 import React, { Component } from "react";
 import "./App.css";
-var Highlight = require("react-highlight");
-import Yo from "./Yo.js"
-import GetAppUser from "./GetAppUser.js"
-import PostMessage from "./PostMessage.js"
+import Yo from "./sections/Yo.js"
+import AppUser from "./sections/AppUser.js"
+import PostMessage from "./sections/PostMessage.js"
 
 
 class App extends Component {
@@ -23,7 +22,7 @@ class App extends Component {
           <p>Explore Smooch API with few sample calls</p>
         </div>
         <Yo />
-        <GetAppUser />
+        <AppUser />
         <PostMessage />
       </div>
     );
