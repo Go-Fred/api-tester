@@ -12,6 +12,8 @@ const PORT = process.env.PORT || 5000;
 const KEY_ID = process.env.KEY_ID;
 const SECRET = process.env.SECRET;
 console.log(KEY_ID)
+console.log(SECRET)
+
 
 const smooch = new Smooch({
     keyId: KEY_ID,
@@ -22,6 +24,8 @@ const smooch = new Smooch({
 var yoPayload = null;
 var appUserId;
 
+// smooch.appUsers.get('784483d2107d53ff3a7ede50','ds')
+// smooch.appUsers.get(appUserId)
 // Priority serve any static files.
 app.use(express.static(path.resolve(__dirname, '../react-ui/build')));
 app.use(bodyParser.json());
@@ -50,12 +54,13 @@ app.post('/messages', function(req, res) {
     appUserId = req.body.appUser._id;
     console.log(appUserId);
     res.sendStatus(200);
-    res.end();
   }
 });
 
 // Answer API requests.
 app.get('/appuser', function (req, res) {
+  console.log(appUserId);
+
   smooch.appUsers.get(appUserId)
   .then((response) => {
     res.send(response)
