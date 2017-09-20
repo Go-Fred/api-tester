@@ -53,8 +53,14 @@ app.post('/messages', function(req, res) {
     yoPayload = JSON.stringify(req.body, null, 4);
     appUserId = req.body.appUser._id;
     console.log(appUserId);
+    console.log(req.body);
     res.sendStatus(200);
   }
+});
+
+app.post('/updateappuser', function(req, res) {
+console.log(req.body)
+res.sendStatus(200);
 });
 
 // Answer API requests.
