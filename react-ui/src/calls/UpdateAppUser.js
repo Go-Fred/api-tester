@@ -85,32 +85,88 @@ class UpdateAppUser extends Component {
       });
   };
 
-  render() {
+  updateJSON = (JSONArray, state) => {
+    if(state){
+      JSONArray[0].properties = { lang: "en-ca", items: 3 }
+    }
+    return(JSONArray)
+  }
 
+  generatePreview = (JSONArray, state) => {
+
+    this.updateJSON(JSONArray, state)
+    console.log(JSONArray)
+
+    return <CallPreview
+              JSONPreview={JSONArray}
+              />
+  }
+
+  render() {
     var inputs = {
       userId: this.handleMessageChange
-     }
+    };
+
+    var highLightJSONArray = [{
+        givenName: this.state.nameParamValue,
+        surname: this.state.surnameParamValue,
+        email: this.state.emailParamValue,
+        signedUpAt: this.state.signedUpAtParamValue,
+    }]
+
+    var parametersArray = [
+      {
+        label: "givenName",
+        formHandler: this.handleNameValueChange,
+        value: this.state.nameParamValue
+      },
+      {
+        label: "surname",
+        formHandler: this.handleSurnameValueChange,
+        value: this.state.surnameParamValue
+      },
+      {
+        label: "email",
+        formHandler: this.handleEmailValueChange,
+        value: this.state.emailParamValue
+      },
+      {
+        label: "signedUpAt",
+        formHandler: this.handleSignedUpAtValueChange,
+        value: this.state.signedUpAtParamValue
+      }
+    ];
 
     return (
       <div>
-        <ParametersInput
-          label="userId"
-          formHandler={inputs.userId}
-          value={this.state.messageValue}
-        />
+        <div className="parameters">
+          <h2>Parameters</h2>
+        {parametersArray.map(obj =>
+          <ParametersInput
+            label={obj.label}
+            formHandler={obj.formHandler}
+            value={obj.value}
+          />
+        )}
+          <label>
+            Sample properties:
+            <input
+              type="checkbox"
+              checked={this.state.isPropertiesChecked}
+              onChange={() => {this.handlePropertiesValueChange(highLightJSONArray)}}
+            />
+          </label>
+        </div>
+        <div>
+          {this.generatePreview(highLightJSONArray,this.state.isPropertiesChecked)}
+        </div>
         <div className="result-section">
           <div className="button-container">
-            <button onClick={this.updateAppUser}>Update App User </button>
+            <button onClick={() => {this.updateAppUser(highLightJSONArray[0])}}>Update App User </button>
           </div>
           <Result
-            data={this.state.smoochUserId}
-            title="Smooch userId (_id): "
-            error={this.state.error}
-            errorPayload={this.state.errorPayload}
-          />
-          <Result
-            data={this.state.userIdPayload}
-            title="Full user payload: "
+            data={this.state.responsePayload}
+            title="Response: "
             error={this.state.error}
             errorPayload={this.state.errorPayload}
           />
