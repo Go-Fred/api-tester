@@ -7,7 +7,6 @@ class ParametersInput extends Component {
 
   render() {
     return (
-      <div className="parameters">
         <label>
         {this.props.label}:
         <input
@@ -17,7 +16,6 @@ class ParametersInput extends Component {
           onChange={this.props.formHandler}
         />
         </label>
-      </div>
     );
   }
 }
