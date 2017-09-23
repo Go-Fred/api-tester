@@ -124,7 +124,11 @@ pre {
   margin-bottom: 15px;
 }
 
-.result-section {
+.result {
+  margin-top:20px;
+}
+
+.result-section-dropdown {
   margin-top:10px;
 }
 

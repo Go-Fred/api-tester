@@ -11,7 +11,7 @@ class Result extends Component {
     if (!error) {
       if (data) {
         return (
-          <div>
+          <div className="result">
             <p>
               {title}
             </p>
@@ -23,7 +23,7 @@ class Result extends Component {
       }
     } else {
       return (
-        <div>
+        <div className="result">
           <p>
             {title}
           </p>
