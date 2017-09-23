@@ -24,13 +24,14 @@ class AppUser extends Component {
           <span className="arrow">→</span> Response
         </h3>
         <p>
-          Now that the user has started the conversation, let's test the calls
-          to manipulate the user's info.
+          Now that the user has started the conversation, we can manage the user's info through those API calls.
         </p>
         <div className="call">
           <DropdownButton title={this.state.dropdownTitle} id={`dropdown-basic`}>
             <MenuItem eventKey="Get App User" onSelect={(eventKey) => this.dropdownClick(eventKey)} >Get App User</MenuItem>
             <MenuItem eventKey="Update App User" onSelect={(eventKey) => this.dropdownClick(eventKey)} >Update App User</MenuItem>
+            <MenuItem eventKey="Delete User Profile" onSelect={(eventKey) => this.dropdownClick(eventKey)} >Delete User Profile</MenuItem>
+            <MenuItem eventKey="Get User Channel Entities" onSelect={(eventKey) => this.dropdownClick(eventKey)} >Get User Channel Entities</MenuItem>
           </DropdownButton>
           <SelectedCallName call={this.state.dropdownTitle} />
           <SelectedCall call={this.state.dropdownTitle} />
