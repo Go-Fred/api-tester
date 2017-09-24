@@ -156,23 +156,16 @@ class UpdateAppUser extends Component {
             label={obj.label}
             formHandler={obj.formHandler}
             value={obj.value}
+            type={obj.type}
           />
         )}
-          <label>
-            Sample properties:
-            <input
-              type="checkbox"
-              checked={this.state.isPropertiesChecked}
-              onChange={() => {this.handlePropertiesValueChange(highLightJSONArray)}}
-            />
-          </label>
         </div>
         <div>
           {this.generatePreview(highLightJSONArray,this.state.isPropertiesChecked)}
         </div>
-        <div className="result-section">
+        <div className="result-section-dropdown">
           <div className="button-container">
-            <button onClick={() => {this.updateAppUser(highLightJSONArray[0])}}>Update App User </button>
+            <button onClick={() => {this.updateAppUser(highLightJSONArray[0])}}>{this.props.buttonTitle}</button>
           </div>
           <Result
             data={this.state.responsePayload}

@@ -38,9 +38,9 @@ class GetAppUser extends Component {
 
   render() {
     return (
-      <div className="result-section">
+      <div className="result-section-dropdown">
         <div className="button-container">
-          <button onClick={this.getAppUser}>Get app user </button>
+          <button onClick={this.getAppUser}>{this.props.buttonTitle} </button>
         </div>
         <Result data={this.state.smoochUserId} title="Smooch userId (_id): " error={this.state.error} errorPayload={this.state.errorPayload}/>
         <Result data={this.state.userIdPayload} title="Full user payload: " error={this.state.error} errorPayload={this.state.errorPayload}/>
