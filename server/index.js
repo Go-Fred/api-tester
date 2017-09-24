@@ -10,10 +10,23 @@ const Smooch = require("smooch-core");
 const app = express();
 var server = require("http").Server(app);
 var io = require("socket.io")(server);
-
+var superagent = require("superagent");
+var jwt = require('jsonwebtoken');
 const PORT = process.env.PORT || 5000;
 const KEY_ID = process.env.KEY_ID;
 const SECRET = process.env.SECRET;
+const APP_ID = process.env.APP_ID;
+var token = jwt.sign({
+    scope: 'app'
+},
+    SECRET,
+    {
+        header: {
+            alg: 'HS256',
+            kid: KEY_ID
+        }
+    });
+
 console.log(KEY_ID);
 console.log(SECRET);
 
@@ -38,7 +51,7 @@ app.get("/api", function(req, res) {
 
 app.post("/messages", function(req, res) {
   if (req.body.trigger === "message:appUser") {
-    console.log(req.body)
+    console.log(req.body);
     messagePayload = JSON.stringify(req.body, null, 4);
     appUserId = req.body.appUser._id;
     io.emit("message", messagePayload);
@@ -62,6 +75,29 @@ app.post("/updateappuser", function(req, res) {
   smooch.appUsers.update(appUserId, req.body).then(response => {
     res.send(response);
   });
+});
+
+app.post("/getchannels", function(req, res) {
+  console.log(req.body);
+
+  if (req.body) {
+    superagent
+      .get("https://api.smooch.io/v1/apps/"+ APP_ID +"appusers/" + req.body + "/channels")
+      .set("authorization", "Bearer " + token)
+      .set("Accept", "application/json")
+      .end(function(err2, postres) {
+        console.log(err2, postres.body, postres.statusCode);
+      });
+  } else {
+    superagent
+      .get("https://api.smooch.io/v1/apps/"+ APP_ID +"appusers/" + userId + "/channels")
+      .set("authorization", "Bearer " + token)
+      .set("Accept", "application/json")
+      .end(function(err2, postres) {
+        console.log(err2, postres.body, postres.statusCode);
+      });
+    });
+  }
 });
 
 // Answer API requests.
