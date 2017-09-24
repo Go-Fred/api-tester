@@ -8,13 +8,24 @@ class SelectedCallName extends Component {
   }
 
   render() {
-    var text;
-    if (this.props.call === "Get App User"){
-      text = <p className="api-call"> GET /v1/apps/{"{"}appId{"}"}/appusers/{"{"}smoochId|userId{"}"}</p>
-    } else if (this.props.call === "Update App User") {
-      text = <p className="api-call"> PUT /v1/apps/{"{"}appId{"}"}/appusers/{"{"}smoochId|userId{"}"}</p>
+
+    switch (this.props.call){
+      case "Get App User":
+        return <p className="api-call"> GET /v1/apps/{"{"}appId{"}"}/appusers/{"{"}smoochId|userId{"}"}</p>
+        break;
+      case "Update App User":
+        return <p className="api-call"> PUT /v1/apps/{"{"}appId{"}"}/appusers/{"{"}smoochId|userId{"}"}</p>
+        break;
+      case "Delete User Profile":
+        return <p className="api-call"> DEL /v1/apps/{"{"}appId{"}"}/appusers/{"{"}smoochId|userId{"}"}</p>
+        break;
+      case "Get User Channel Entities":
+        return <p className="api-call"> GET /v1/apps/{"{"}appId{"}"}/appusers/{"{"}smoochId|userId{"}"}/channels</p>
+        break;
+      default:
+        return
+        break
     }
-    return (text);
   }
 }
 

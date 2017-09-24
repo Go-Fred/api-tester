@@ -2,6 +2,9 @@ import React, { Component } from "react";
 import Result from "./Result.js";
 import GetAppUser from "./calls/GetAppUser.js";
 import UpdateAppUser from "./calls/UpdateAppUser.js";
+import DeleteUserProfile from "./calls/DeleteUserProfile.js";
+import GetChannels from "./calls/GetChannels.js";
+
 
 class SelectedCall extends Component {
   constructor(props) {
@@ -9,15 +12,22 @@ class SelectedCall extends Component {
   }
 
   render() {
-    var call = this.props.call;
-
-    if (call === "Get App User") {
-      return <GetAppUser />;
-    } else if (call === "Update App User") {
-      return (<UpdateAppUser />
-      );
-    } else {
-      return;
+    switch (this.props.call){
+      case "Get App User":
+        return <GetAppUser buttonTitle={this.props.call}/>
+        break;
+      case "Update App User":
+        return <UpdateAppUser buttonTitle={this.props.call}/>
+        break;
+      case "Delete User Profile":
+        return <DeleteUserProfile buttonTitle={this.props.call}/>
+        break;
+      case "Get User Channel Entities":
+        return <GetChannels buttonTitle={this.props.call}/>
+        break;
+      default:
+        return
+        break
     }
   }
 }
