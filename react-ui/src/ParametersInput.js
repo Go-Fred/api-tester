@@ -11,7 +11,7 @@ class ParametersInput extends Component {
         {this.props.label}:
         <input
           className="parameter-input"
-          type="text"
+          type={this.props.type}
           value={this.props.value}
           onChange={this.props.formHandler}
         />

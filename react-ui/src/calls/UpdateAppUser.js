@@ -15,7 +15,7 @@ class UpdateAppUser extends Component {
       emailParamValue:"",
       signedUpAtParamValue:"",
       isPropertiesChecked:false,
-      error: false
+      error: false,
     };
   }
 
@@ -118,22 +118,32 @@ class UpdateAppUser extends Component {
       {
         label: "givenName",
         formHandler: this.handleNameValueChange,
-        value: this.state.nameParamValue
+        value: this.state.nameParamValue,
+        type: "text"
       },
       {
         label: "surname",
         formHandler: this.handleSurnameValueChange,
-        value: this.state.surnameParamValue
+        value: this.state.surnameParamValue,
+        type: "text"
       },
       {
         label: "email",
         formHandler: this.handleEmailValueChange,
-        value: this.state.emailParamValue
+        value: this.state.emailParamValue,
+        type: "text"
       },
       {
         label: "signedUpAt",
         formHandler: this.handleSignedUpAtValueChange,
-        value: this.state.signedUpAtParamValue
+        value: this.state.signedUpAtParamValue,
+        type: "text"
+      },
+      {
+        label: "Add some sample properties",
+        formHandler: () => {this.handlePropertiesValueChange(highLightJSONArray)},
+        value: this.state.signedUpAtParamValue,
+        type: "checkbox"
       }
     ];
 

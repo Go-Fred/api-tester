@@ -1,7 +1,6 @@
 import React, { Component } from "react";
 var Highlight = require("react-highlight");
 import Result from "../Result.js";
-
 import { subscribeToMessagePayload } from '../socket/message.js';
 
 class Yo extends Component {
