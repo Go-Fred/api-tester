@@ -79,25 +79,51 @@ app.post("/updateappuser", function(req, res) {
 
 app.post("/getchannels", function(req, res) {
   console.log(req.body);
-
-  if (req.body) {
-    superagent
-      .get("https://api.smooch.io/v1/apps/"+ APP_ID +"appusers/" + req.body + "/channels")
-      .set("authorization", "Bearer " + token)
-      .set("Accept", "application/json")
-      .end(function(err2, postres) {
-        console.log(err2, postres.body, postres.statusCode);
-      });
+  console.log(req.body.userId);
+  console.log("https://api.smooch.io/v1/apps/"+ APP_ID +"/appusers/" + appUserId + "/channels")
+  if(req.body.userId === ""){
+    console.log("going to Smooch")
+      superagent
+        .get("https://api.smooch.io/v1/apps/"+ APP_ID +"/appusers/" + appUserId + "/channels")
+        .set("authorization", "Bearer " + token)
+        .set("Accept", "application/json")
+        .then(response => {
+          res.send(response.text);
+        })
+        .catch(err => {
+          console.log("API ERROR:\n", err);
+          res.end();
+        });
   } else {
-    superagent
-      .get("https://api.smooch.io/v1/apps/"+ APP_ID +"appusers/" + userId + "/channels")
-      .set("authorization", "Bearer " + token)
-      .set("Accept", "application/json")
-      .end(function(err2, postres) {
-        console.log(err2, postres.body, postres.statusCode);
-      });
-    });
-  }
+      superagent
+        .get("https://api.smooch.io/v1/apps/"+ APP_ID +"/appusers/" + req.body.userId + "/channels")
+        .set("authorization", "Bearer " + token)
+        .set("Accept", "application/json")
+        .then(response => {
+          res.send(response.text);
+        })
+        .catch(err => {
+          console.log("API ERROR:\n", err);
+          res.end();
+        });
+       }
+  // if (req.body) {
+  //   superagent
+  //     .get("https://api.smooch.io/v1/apps/"+ APP_ID +"appusers/" + req.body + "/channels")
+  //     .set("authorization", "Bearer " + token)
+  //     .set("Accept", "application/json")
+  //     .end(function(err2, postres) {
+  //       console.log(err2, postres.body, postres.statusCode);
+  //     });
+  // } else {
+  //   superagent
+  //     .get("https://api.smooch.io/v1/apps/"+ APP_ID +"appusers/" + userId + "/channels")
+  //     .set("authorization", "Bearer " + token)
+  //     .set("Accept", "application/json")
+  //     .end(function(err2, postres) {
+  //       console.log(err2, postres.body, postres.statusCode);
+  //     });
+  //   }
 });
 
 // Answer API requests.
