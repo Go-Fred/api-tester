@@ -20,6 +20,7 @@ const SERVICE_URL = process.env.SERVICE_URL + "/v1" || 'https://app.smooch.io/v1
 const token = jwt.sign(
   {
     scope: 'app'
+<<<<<<< HEAD
   },
   SECRET,
   {
@@ -29,6 +30,16 @@ const token = jwt.sign(
     }
   }
 );
+=======
+},
+    SECRET,
+    {
+        header: {
+            alg: 'HS256',
+            kid: KEY_ID
+        }
+    });
+>>>>>>> Remove crap secret
 
 console.log(KEY_ID);
 console.log(SECRET);
