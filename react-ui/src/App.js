@@ -3,6 +3,7 @@ import "./App.css";
 import Yo from "./sections/Yo.js"
 import AppUser from "./sections/AppUser.js"
 import PostMessage from "./sections/PostMessage.js"
+import Smooch from 'smooch'
 
 
 class App extends Component {
@@ -13,6 +14,14 @@ class App extends Component {
     };
     //this.handleClick = this.handleClick.bind(this)
   }
+
+  componentDidMount() {
+  Smooch.init({
+    appId: '587feb5700671a330053dd34'
+  }).then(() => {
+    Smooch.open();
+  });
+}
 
   render() {
     return (
