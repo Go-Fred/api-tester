@@ -66,6 +66,7 @@ class GetChannels extends Component {
       body: JSON.stringify(userId)
     })
       .then(response => {
+        console.log(response);
         if (!response.ok) {
           throw new Error(`status ${response.status}`);
         }
@@ -73,10 +74,17 @@ class GetChannels extends Component {
       })
       .then(data => {
         console.log(data);
+        if(data){
         this.setState({
           responsePayload: JSON.stringify(data, null, 2),
           error: false
         });
+      }else {
+        this.setState({
+          responsePayload: "No channel",
+          error: false
+        });
+      }
       })
       .catch(e => {
         this.setState({
@@ -105,6 +113,10 @@ class GetChannels extends Component {
         key: ""
       }
     ]
+
+    var JSONUserId = {
+      userId: this.state.userIdParamValue
+    }
 
     return (
       <div>
@@ -137,7 +149,7 @@ class GetChannels extends Component {
           <div className="button-container">
             <button
               onClick={() => {
-                this.getChannels(this.state.userIdParamValue);
+                this.getChannels(JSONUserId);
               }}
             >
               {this.props.buttonTitle}
