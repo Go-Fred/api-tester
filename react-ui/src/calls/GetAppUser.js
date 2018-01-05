@@ -22,15 +22,32 @@ class GetAppUser extends Component {
       })
       .then(data => {
         console.log(data)
-        this.setState({
-          userIdPayload: JSON.stringify(data.appUser, null, 2),
-          smoochUserId: JSON.stringify(data.appUser._id, null, 2),
-          error: false
-        });
+        if(data.response.status === 200){
+          this.setState({
+            userIdPayload: JSON.stringify(data.appUser, null, 2),
+            smoochUserId: JSON.stringify(data.appUser._id, null, 2),
+            error: false
+          });
+        }
+        else if (data.response.status === 404){
+          this.setState({
+            userIdPayload: `API call failed: ` + `404 `+ `Description: ` + JSON.stringify(data.description, null, 2),
+            smoochUserId: `API call failed: ` + `404 `+ `Description: ` +  JSON.stringify(data.description, null, 2),
+            error: false
+          });
+        }
+        else if (data.response.status === 403){
+          this.setState({
+            userIdPayload: `API call failed: ` + `403 `+ `Description: ` + JSON.stringify(data.description, null, 2),
+            smoochUserId: `API call failed: ` + `403 `+ `Description: ` +  JSON.stringify(data.description, null, 2),
+            error: false
+          });
+        }
       })
       .catch(e => {
+        console.log(e)
         this.setState({
-          errorPayload: `API call failed: ${e}`,
+          errorPayload: `HTTP request failed: ${e}`,
           error: true
         });
       });
