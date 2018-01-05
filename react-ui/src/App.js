@@ -5,6 +5,8 @@ import AppUser from "./sections/AppUser.js"
 import PostMessage from "./sections/PostMessage.js"
 import Smooch from 'smooch'
 
+const APP_ID = '587feb5700671a330053dd34'
+const BASE_URL = 'https://api.smooch.io/sdk'
 
 class App extends Component {
   constructor(props) {
@@ -17,7 +19,8 @@ class App extends Component {
 
   componentDidMount() {
   Smooch.init({
-    appId: '587feb5700671a330053dd34'
+    appId: APP_ID,
+    configBaseUrl: BASE_URL
   }).then(() => {
     Smooch.open();
   });
