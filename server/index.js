@@ -30,9 +30,6 @@ const token = jwt.sign(
   }
 );
 
-console.log(KEY_ID);
-console.log(SECRET);
-
 const smooch = new Smooch(
   {
     keyId: KEY_ID,
@@ -57,6 +54,7 @@ app.get("/api", function(req, res) {
   res.send('{"message":response.appUser._id}');
 });
 
+// POST message by appUser
 app.post("/messages", function(req, res) {
   if (req.body.trigger === "message:appUser") {
     console.log(req.body);
@@ -67,6 +65,7 @@ app.post("/messages", function(req, res) {
   }
 });
 
+// UPDATE appUser
 app.post("/updateappuser", function(req, res) {
   console.log(req.body);
 
@@ -75,6 +74,7 @@ app.post("/updateappuser", function(req, res) {
   });
 });
 
+// GET Channels
 app.post("/getchannels", function(req, res) {
   console.log(req.body);
   console.log(req.body.userId);
@@ -107,7 +107,7 @@ app.post("/getchannels", function(req, res) {
        }
 });
 
-// Answer API requests.
+// GET appUser
 app.get("/appuser", function(req, res) {
   console.log(appUserId);
 
@@ -122,6 +122,7 @@ app.get("/appuser", function(req, res) {
     });
 });
 
+// DELETE user profile
 app.get("/deleteuserprofile", function(req, res) {
   smooch.appUsers
     .deleteProfile(appUserId)
@@ -134,6 +135,7 @@ app.get("/deleteuserprofile", function(req, res) {
     });
 });
 
+// POST message by appMaker
 app.get("/postmessage/message/:message", function(req, res) {
   var message = req.params.message;
 
@@ -151,6 +153,7 @@ app.get("/postmessage/message/:message", function(req, res) {
   });
 });
 
+// POST message with button by appMaker
 app.get("/postmessage/message/:message/button/:buttonMessage", function(
   req,
   res
@@ -178,6 +181,7 @@ app.get("/postmessage/message/:message/button/:buttonMessage", function(
     res.send(response);
   });
 });
+
 // All remaining requests return the React app, so it can handle routing.
 app.get("*", function(request, response) {
   response.sendFile(path.resolve(__dirname, "../react-ui/build", "index.html"));
