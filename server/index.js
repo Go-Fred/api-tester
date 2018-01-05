@@ -16,7 +16,7 @@ const PORT = process.env.PORT || 5000;
 const KEY_ID = process.env.KEY_ID;
 const SECRET = process.env.SECRET;
 const APP_ID = process.env.APP_ID;
-const SERVICE_URL = process.env.SERVICE_URL + "/v1" || 'https://app.smooch.io/v1';
+const SERVICE_URL = process.env.SERVICE_URL ? `${process.env.SERVICE_URL}/v1` : 'https://app.smooch.io/v1';
 const token = jwt.sign(
   {
     scope: 'app'

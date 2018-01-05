@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import Result from "../Result.js"
 
+
 class GetAppUser extends Component {
   constructor(props) {
     super(props);
