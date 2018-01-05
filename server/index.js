@@ -1,4 +1,4 @@
-var dotenv = require("dotenv");
+const dotenv = require("dotenv");
 dotenv.config();
 dotenv.load();
 
@@ -8,33 +8,41 @@ const bodyParser = require("body-parser");
 const Smooch = require("smooch-core");
 
 const app = express();
-var server = require("http").Server(app);
-var io = require("socket.io")(server);
-var superagent = require("superagent");
-var jwt = require('jsonwebtoken');
+const server = require("http").Server(app);
+const io = require("socket.io")(server);
+const superagent = require("superagent");
+const jwt = require('jsonwebtoken');
 const PORT = process.env.PORT || 5000;
 const KEY_ID = process.env.KEY_ID;
 const SECRET = process.env.SECRET;
 const APP_ID = process.env.APP_ID;
-var token = jwt.sign({
+const SERVICE_URL = process.env.SERVICE_URL + "/v1" || 'https://app.smooch.io/v1';
+const token = jwt.sign(
+  {
     scope: 'app'
-},
-    SECRET,
-    {
-        header: {
-            alg: 'HS256',
-            kid: KEY_ID
-        }
-    });
+  },
+  SECRET,
+  {
+    header: {
+      alg: 'HS256',
+      kid: KEY_ID
+    }
+  }
+);
 
 console.log(KEY_ID);
 console.log(SECRET);
 
-const smooch = new Smooch({
-  keyId: KEY_ID,
-  secret: SECRET,
-  scope: "app"
-});
+const smooch = new Smooch(
+  {
+    keyId: KEY_ID,
+    secret: SECRET,
+    scope: "app",
+  },
+  {
+    serviceUrl: SERVICE_URL
+  }
+);
 
 var messagePayload = null;
 var appUserId;
@@ -59,16 +67,6 @@ app.post("/messages", function(req, res) {
   }
 });
 
-// app.get('/yo', function (req, res){
-//   console.log('yo PAYLOAD:\n', yoPayload)
-//   if(yoPayload != null){
-//     res.send(yoPayload)
-//   }
-//   else {
-//     res.send("Retry sending message")
-//   }
-// });
-
 app.post("/updateappuser", function(req, res) {
   console.log(req.body);
 
@@ -80,11 +78,11 @@ app.post("/updateappuser", function(req, res) {
 app.post("/getchannels", function(req, res) {
   console.log(req.body);
   console.log(req.body.userId);
-  console.log("https://api.smooch.io/v1/apps/"+ APP_ID +"/appusers/" + appUserId + "/channels")
+  console.log(SERVICE_URL + "/apps/" + APP_ID + "/appusers/" + appUserId + "/channels")
   if(req.body.userId === ""){
     console.log("going to Smooch")
       superagent
-        .get("https://api.smooch.io/v1/apps/"+ APP_ID +"/appusers/" + appUserId + "/channels")
+        .get(SERVICE_URL + "/apps/" + APP_ID + "/appusers/" + appUserId + "/channels")
         .set("authorization", "Bearer " + token)
         .set("Accept", "application/json")
         .then(response => {
@@ -96,7 +94,7 @@ app.post("/getchannels", function(req, res) {
         });
   } else {
       superagent
-        .get("https://api.smooch.io/v1/apps/"+ APP_ID +"/appusers/" + req.body.userId + "/channels")
+        .get(SERVICE_URL + "/apps/" + APP_ID + "/appusers/" + req.body.userId + "/channels")
         .set("authorization", "Bearer " + token)
         .set("Accept", "application/json")
         .then(response => {
@@ -107,23 +105,6 @@ app.post("/getchannels", function(req, res) {
           res.end();
         });
        }
-  // if (req.body) {
-  //   superagent
-  //     .get("https://api.smooch.io/v1/apps/"+ APP_ID +"appusers/" + req.body + "/channels")
-  //     .set("authorization", "Bearer " + token)
-  //     .set("Accept", "application/json")
-  //     .end(function(err2, postres) {
-  //       console.log(err2, postres.body, postres.statusCode);
-  //     });
-  // } else {
-  //   superagent
-  //     .get("https://api.smooch.io/v1/apps/"+ APP_ID +"appusers/" + userId + "/channels")
-  //     .set("authorization", "Bearer " + token)
-  //     .set("Accept", "application/json")
-  //     .end(function(err2, postres) {
-  //       console.log(err2, postres.body, postres.statusCode);
-  //     });
-  //   }
 });
 
 // Answer API requests.
