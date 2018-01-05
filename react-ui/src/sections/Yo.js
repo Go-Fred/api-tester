@@ -3,6 +3,7 @@ var Highlight = require("react-highlight");
 import Result from "../Result.js";
 import { subscribeToMessagePayload } from '../socket/message.js';
 import Smooch from 'smooch'
+import { channelsConf } from "../config/channels.js"
 
 class Yo extends Component {
   constructor(props) {
@@ -21,18 +22,31 @@ class Yo extends Component {
     Smooch.sendMessage("yo");
   };
 
+  onButtonClicked = (name, e) => {
+
+
+  }
+
   render() {
     return (
       <div className="call-section">
         <h2>
-          {" "} A first user message{" "}
+          {" "} Initiate the conversation{" "}
         </h2>
         <h3>
           {" "}App User{" "}
           <span className="arrow">→</span> Smooch{" "}
           <span className="arrow">→</span> Webhook
         </h3>
-        <p>Before sending out some calls, let's try simulating a "yo" message from the user and see the payload that a webhook targeting "message:AppUser" gets in return.</p>
+        <div>
+        Channel:
+        {channelsConf.map(channel =>
+          <button
+            onClick={(e)=> this.onButtonClicked(channel.name, e) }>{channel.name}
+          </button>
+        )}
+        </div>
+        <p>Before sending a request, let's simulate a message from the user and see the payload that a webhook targeting "message:AppUser" gets in return.</p>
         <div className="call">
           <div className="button-container">
             <button onClick={this.sendYo}>Send yo</button>{" "}
