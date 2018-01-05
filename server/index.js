@@ -120,7 +120,8 @@ app.get("/appuser", function(req, res) {
       console.log("API ERROR:\n", err);
       res.status(404).json({
         error: err.description,
-        status: err.response.status
+        status: err.response.status,
+        statusText: err.response.statusText
       });
     });
 });

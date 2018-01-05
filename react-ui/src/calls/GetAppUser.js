@@ -24,11 +24,19 @@ class GetAppUser extends Component {
       })
       .then(data => {
         console.log(data)
-        if(data.error){
-          this.setState({
-            errorPayload: `API call failed ${data.status}: ${data.error}`,
-            error: true
-          });
+        if(data.status !== 200 ){
+          if(data.error){
+            this.setState({
+              errorPayload: `API call failed ${data.status}: ${data.error}`,
+              error: true
+            });
+          }
+          else {
+            this.setState({
+              errorPayload: `API call failed ${data.status}: ${data.statusText}`,
+              error: true
+            });
+          }
         }
         else{
           this.setState({
