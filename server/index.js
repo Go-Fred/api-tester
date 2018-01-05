@@ -45,7 +45,7 @@ const smooch = new Smooch(
 );
 
 var messagePayload = null;
-var appUserId;
+var appUserId = "default";
 
 // Priority serve any static files.
 app.use(express.static(path.resolve(__dirname, "../react-ui/build")));
@@ -114,11 +114,14 @@ app.get("/appuser", function(req, res) {
   smooch.appUsers
     .get(appUserId)
     .then(response => {
-      res.send(response);
+      res.json(response);
     })
     .catch(err => {
       console.log("API ERROR:\n", err);
-      res.end();
+      res.status(404).json({
+        error: err.description,
+        status: err.response.status
+      });
     });
 });
 

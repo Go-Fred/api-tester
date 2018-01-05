@@ -14,33 +14,26 @@ class GetAppUser extends Component {
   }
 
   getAppUser = () => {
-    fetch("/appuser")
+    fetch('/appuser')
       .then(response => {
-        if (!response.ok) {
-          throw new Error(`status ${response.status}`);
-        }
+        console.log(response)
+        // if (!response.ok) {
+        //   throw new Error(response.json());
+        // }
         return response.json();
       })
       .then(data => {
         console.log(data)
-        if(data.response.status === 200){
+        if(data.error){
+          this.setState({
+            errorPayload: `API call failed ${data.status}: ${data.error}`,
+            error: true
+          });
+        }
+        else{
           this.setState({
             userIdPayload: JSON.stringify(data.appUser, null, 2),
             smoochUserId: JSON.stringify(data.appUser._id, null, 2),
-            error: false
-          });
-        }
-        else if (data.response.status === 404){
-          this.setState({
-            userIdPayload: `API call failed: ` + `404 `+ `Description: ` + JSON.stringify(data.description, null, 2),
-            smoochUserId: `API call failed: ` + `404 `+ `Description: ` +  JSON.stringify(data.description, null, 2),
-            error: false
-          });
-        }
-        else if (data.response.status === 403){
-          this.setState({
-            userIdPayload: `API call failed: ` + `403 `+ `Description: ` + JSON.stringify(data.description, null, 2),
-            smoochUserId: `API call failed: ` + `403 `+ `Description: ` +  JSON.stringify(data.description, null, 2),
             error: false
           });
         }
