@@ -7,33 +7,78 @@ class UpdateAppUser extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      userIdPayload: null,
-      smoochUserId: null,
+      responsePayload: null,
       errorPayload: null,
       messageValue: "",
       nameParamValue:"",
       surnameParamValue:"",
-      error: false
+      emailParamValue:"",
+      signedUpAtParamValue:"",
+      isPropertiesChecked:false,
+      error: false,
     };
   }
 
   handleMessageChange = event => {
     this.setState({ messageValue: event.target.value });
-    console.log(this.state.messageValue);
   };
 
   handleNameValueChange = event => {
     this.setState({ nameParamValue: event.target.value });
-    console.log(this.state.nameParamValue);
   };
 
   handleSurnameValueChange = event => {
     this.setState({ surnameParamValue: event.target.value });
-    console.log(this.state.surnameParamValue);
   };
 
-  updateAppUser = () => {
-    fetch("/appuser")
+  handleEmailValueChange = event => {
+    this.setState({ emailParamValue: event.target.value });
+  };
+
+  handleSignedUpAtValueChange = event => {
+    this.setState({ signedUpAtParamValue: event.target.value });
+  };
+
+  // To be implemented for modularity
+  handleValueChange = key, event => {
+    this.setState( {
+      [key]: event.target.value
+    }
+  );
+  };
+
+  // See below (ParametersInput): formHandler={(e)=> this.handleValueChange(obj.key, e); }
+
+  // See below (parametersArray) : key: 'sampleProperties'
+
+
+
+
+  handlePropertiesValueChange = (JSONArray) => {
+
+    this.setState({
+      isPropertiesChecked: !this.state.isPropertiesChecked,
+    });
+
+    console.log(!this.state.isPropertiesChecked)
+
+    if(!this.state.isPropertiesChecked){
+      console.log(JSONArray[0])
+      JSONArray[0].properties = { lang: "en-ca", items: 3 }
+    }
+
+  };
+
+  updateAppUser = (JSONArray) => {
+    console.log(JSONArray)
+    fetch("/updateappuser", {
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json'
+      },
+      method: "POST",
+      body: JSON.stringify(JSONArray)
+    })
       .then(response => {
         if (!response.ok) {
           throw new Error(`status ${response.status}`);
@@ -43,8 +88,7 @@ class UpdateAppUser extends Component {
       .then(data => {
         console.log(data);
         this.setState({
-          userIdPayload: JSON.stringify(data.appUser, null, 2),
-          smoochUserId: JSON.stringify(data.appUser._id, null, 2),
+          responsePayload: JSON.stringify(data, null, 2),
           error: false
         });
       })
@@ -56,26 +100,20 @@ class UpdateAppUser extends Component {
       });
   };
 
-  generatePreview = () => {
+  updateJSON = (JSONArray, state) => {
+    if(state){
+      JSONArray[0].properties = { lang: "en-ca", items: 3 }
+    }
+    return(JSONArray)
+  }
 
-    var highLightJSONArray = [{
-      coreJSON: {
-        type: "text",
-        text: this.state.nameParamValue,
-        role: "appMaker",
-        metadata: { lang: "en-ca", items: 3 }
-      }
-    }]
+  generatePreview = (JSONArray, state) => {
 
-      if(this.state.surnameParamValue){
-        highLightJSONArray[0].sideJSON = {
-          key: "action",
-          JSONtext: [{test: this.state.surnameParamValue}]
-        }
-      }
+    this.updateJSON(JSONArray, state)
+    console.log(JSONArray)
 
     return <CallPreview
-              JSONPreview={highLightJSONArray}
+              JSONPreview={JSONArray}
               />
   }
 
@@ -84,16 +122,44 @@ class UpdateAppUser extends Component {
       userId: this.handleMessageChange
     };
 
+    var highLightJSONArray = [{
+        givenName: this.state.nameParamValue,
+        surname: this.state.surnameParamValue,
+        email: this.state.emailParamValue,
+        signedUpAt: this.state.signedUpAtParamValue,
+    }]
+
     var parametersArray = [
       {
-        label: "Name",
+        label: "givenName",
         formHandler: this.handleNameValueChange,
-        value: this.state.nameParamValue
+        value: this.state.nameParamValue,
+        type: "text"
       },
       {
-        label: "Surname",
+        label: "surname",
         formHandler: this.handleSurnameValueChange,
-        value: this.state.surnameParamValue
+        value: this.state.surnameParamValue,
+        type: "text"
+      },
+      {
+        label: "email",
+        formHandler: this.handleEmailValueChange,
+        value: this.state.emailParamValue,
+        type: "text"
+      },
+      {
+        label: "signedUpAt",
+        formHandler: this.handleSignedUpAtValueChange,
+        value: this.state.signedUpAtParamValue,
+        type: "text"
+      },
+      {
+        label: "Add some sample properties",
+        formHandler: () => {this.handlePropertiesValueChange(highLightJSONArray)},
+        value: this.state.signedUpAtParamValue,
+        type: "checkbox",
+        key: 'sampleProperties'
       }
     ];
 
@@ -104,27 +170,22 @@ class UpdateAppUser extends Component {
         {parametersArray.map(obj =>
           <ParametersInput
             label={obj.label}
-            formHandler={obj.formHandler}
+            formHandler={(e)=> this.handleValueChange(obj.key, e); }
             value={obj.value}
+            type={obj.type}
           />
         )}
         </div>
         <div>
-          {this.generatePreview()}
+          {this.generatePreview(highLightJSONArray,this.state.isPropertiesChecked)}
         </div>
-        <div className="result-section">
+        <div className="result-section-dropdown">
           <div className="button-container">
-            <button onClick={this.updateAppUser}>Update App User </button>
+            <button onClick={() => {this.updateAppUser(highLightJSONArray[0])}}>{this.props.buttonTitle}</button>
           </div>
           <Result
-            data={this.state.smoochUserId}
-            title="Smooch userId (_id): "
-            error={this.state.error}
-            errorPayload={this.state.errorPayload}
-          />
-          <Result
-            data={this.state.userIdPayload}
-            title="Full user payload: "
+            data={this.state.responsePayload}
+            title="Response: "
             error={this.state.error}
             errorPayload={this.state.errorPayload}
           />
