@@ -30,8 +30,8 @@ class App extends Component {
     return (
       <div className="App">
         <div className="intro">
-          <h1>Smooch API Tester</h1>
-          <p>Explore Smooch API with few sample calls</p>
+          <h1>Smooch Demo Environment</h1>
+          <p>Test & Explore Smooch API through an elegant interface</p>
         </div>
         <Yo />
         <AppUser />
