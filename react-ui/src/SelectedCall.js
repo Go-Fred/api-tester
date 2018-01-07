@@ -4,6 +4,7 @@ import GetAppUser from "./calls/GetAppUser.js";
 import UpdateAppUser from "./calls/UpdateAppUser.js";
 import DeleteUserProfile from "./calls/DeleteUserProfile.js";
 import GetChannels from "./calls/GetChannels.js";
+import PostMessage from "./calls/PostMessage.js";
 
 
 class SelectedCall extends Component {
@@ -24,6 +25,9 @@ class SelectedCall extends Component {
         break;
       case "Get User Channel Entities":
         return <GetChannels buttonTitle={this.props.call}/>
+        break;
+      case "Post Message":
+        return <PostMessage buttonTitle={this.props.call}/>
         break;
       default:
         return

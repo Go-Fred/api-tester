@@ -1,16 +1,16 @@
 export const channelsConf = [
   {
-    name: "Web",
+    key: "Web",
     active: true,
     imgSrc: "url.com"
   },
   {
-    name: "Facebook",
+    key: "Facebook",
     active: true,
     imgSrc: "url.com"
   },
   {
-    name: "WeChat",
+    key: "WeChat",
     active: false,
     imgSrc: "url.com"
   }
