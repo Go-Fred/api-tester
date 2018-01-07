@@ -14,7 +14,8 @@ class Yo extends Component {
       appUserMessagePayload: null,
       error: false,
       errorPayload: null,
-      fetching: true
+      fetching: true,
+      channelSection: null
     };
   }
 
@@ -22,8 +23,10 @@ class Yo extends Component {
     Smooch.sendMessage("yo");
   };
 
-  onButtonClicked = (name, e) => {
-
+  onButtonClicked = (key, e) => {
+    this.setState({
+      channelSection: key
+    });
 
   }
 
@@ -42,7 +45,7 @@ class Yo extends Component {
         Channel:
         {channelsConf.map(channel =>
           <button
-            onClick={(e)=> this.onButtonClicked(channel.name, e) }>{channel.name}
+            onClick={(e)=> this.onButtonClicked(channel.key, e) }>{channel.key}
           </button>
         )}
         </div>
