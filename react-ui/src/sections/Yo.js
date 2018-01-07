@@ -41,14 +41,6 @@ class Yo extends Component {
           <span className="arrow">→</span> Smooch{" "}
           <span className="arrow">→</span> Webhook
         </h3>
-        <div>
-        Channel:
-        {channelsConf.map(channel =>
-          <button
-            onClick={(e)=> this.onButtonClicked(channel.key, e) }>{channel.key}
-          </button>
-        )}
-        </div>
         <p>Before sending a request, let's simulate a message from the user and see the payload that a webhook targeting "message:AppUser" gets in return.</p>
         <div className="call">
           <div className="button-container">
