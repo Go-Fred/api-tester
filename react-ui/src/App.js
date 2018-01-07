@@ -35,7 +35,6 @@ class App extends Component {
         </div>
         <Yo />
         <AppUser />
-        <PostMessage />
       </div>
     );
   }
