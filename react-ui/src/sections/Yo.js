@@ -15,7 +15,7 @@ class Yo extends Component {
       error: false,
       errorPayload: null,
       fetching: true,
-      channelSection: null
+      channelSelection: null
     };
   }
 
@@ -25,7 +25,7 @@ class Yo extends Component {
 
   onButtonClicked = (key, e) => {
     this.setState({
-      channelSection: key
+      channelSelection: key
     });
 
   }
