@@ -9,6 +9,7 @@ class GetAppUser extends Component {
       userIdPayload: null,
       smoochUserId: null,
       errorPayload: null,
+      smoochError:false,
       error: false
     };
   }
@@ -29,12 +30,14 @@ class GetAppUser extends Component {
             console.log(data.error)
             this.setState({
               errorPayload: `API call failed ${data.status}: ${data.error}`,
+              smoochError:false,
               error: true
             });
           }
           else if (data.statusText !== "OK"){
             this.setState({
               errorPayload: `API call failed ${data.status}: ${data.statusText}`,
+              smoochError:true,
               error: true
             });
           }
@@ -43,6 +46,7 @@ class GetAppUser extends Component {
           this.setState({
             userIdPayload: JSON.stringify(data.appUser, null, 2),
             smoochUserId: JSON.stringify(data.appUser._id, null, 2),
+            smoochError:false,
             error: false
           });
         }
@@ -62,6 +66,14 @@ class GetAppUser extends Component {
         <div className="button-container">
           <button onClick={this.getAppUser}>{this.props.buttonTitle} </button>
         </div>
+        {this.state.smoochError === true &&
+          <div className="smooch-error-message">
+          <h3
+            >
+            Something went wront when sending your request to Smooch. Please contact your Account Manager and paste the following error in the message.
+          </h3>
+          </div>
+        }
         <Result data={this.state.smoochUserId} title="Smooch userId (_id): " error={this.state.error} errorPayload={this.state.errorPayload}/>
         <Result data={this.state.userIdPayload} title="Full user payload: " error={this.state.error} errorPayload={this.state.errorPayload}/>
       </div>
