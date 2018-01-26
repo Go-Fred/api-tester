@@ -16,7 +16,7 @@ const PORT = process.env.PORT || 5000;
 const KEY_ID = process.env.KEY_ID;
 const SECRET = process.env.SECRET;
 const APP_ID = process.env.APP_ID;
-const SERVICE_URL = process.env.SERVICE_URL + "/v1" || 'https://app.smooch.io/v1';
+const SERVICE_URL = process.env.SERVICE_URL ? `${process.env.SERVICE_URL}/v1` : 'https://app.smooch.io/v1';
 const token = jwt.sign(
   {
     scope: 'app'
@@ -42,7 +42,7 @@ const smooch = new Smooch(
 );
 
 var messagePayload = null;
-var appUserId;
+var appUserId = "default";
 
 // Priority serve any static files.
 app.use(express.static(path.resolve(__dirname, "../react-ui/build")));
@@ -114,11 +114,15 @@ app.get("/appuser", function(req, res) {
   smooch.appUsers
     .get(appUserId)
     .then(response => {
-      res.send(response);
+      res.json(response);
     })
     .catch(err => {
       console.log("API ERROR:\n", err);
-      res.end();
+      res.status(404).json({
+        error: err.description,
+        status: err.response.status,
+        statusText: err.response.statusText
+      });
     });
 });
 

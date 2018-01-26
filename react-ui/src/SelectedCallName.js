@@ -22,6 +22,9 @@ class SelectedCallName extends Component {
       case "Get User Channel Entities":
         return <p className="api-call"> GET /v1/apps/{"{"}appId{"}"}/appusers/{"{"}smoochId|userId{"}"}/channels</p>
         break;
+      case "Post Message":
+        return  <p className="api-call"> POST /v1/apps/{"{"}appId{"}"}/appusers/{"{"}smoochId|userId{"}"}/messages</p>
+        break;        
       default:
         return
         break
